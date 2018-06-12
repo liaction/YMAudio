@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="RtlHardcoded">
+
+    <com.cleveroad.audiovisualization.GLAudioVisualizationView
+        android:id="@+id/mVisualizerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:av_backgroundColor="@color/av_backgroundColor"
+        app:av_bubblesPerLayer="@integer/av_bubblesPerLayer"
+        app:av_bubblesRandomizeSizes="@bool/av_bubblesRandomizeSizes"
+        app:av_bubblesSize="@dimen/bubble_size"
+        app:av_layersCount="@integer/av_layersCount"
+        app:av_wavesColors="@array/av_wavesColors"
+        app:av_wavesCount="@integer/av_wavesCount"
+        app:av_wavesFooterHeight="@dimen/footer_height"
+        app:av_wavesHeight="@dimen/wave_height" />
+
+    <Chronometer
+        android:id="@+id/mAudioTime"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textColor="#fff"
+        android:textSize="80sp" />
+
+    <ImageButton
+        android:visibility="gone"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/mAudioTime"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_audio_mic" />
+
+    <ImageButton
+        android:id="@+id/mAudioCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_audio_cancel"
+        android:padding="10dp" />
+
+    <ImageButton
+        android:id="@+id/mAudioOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_audio_ok"
+        android:padding="10dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/mAudioReStart"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/bg_circle_white"
+        android:src="@drawable/ic_audio_restart"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/mAudioStartOrPause"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/circle_red" />
+
+    <ImageButton
+        android:id="@+id/mAudioStop"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rectangle_red"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/mAudioPlay"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_circle_white"
+
+        android:src="@drawable/ic_audio_play"
+        android:visibility="gone" />
+
+</RelativeLayout>

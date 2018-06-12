@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="av_backgroundColor">@color/colorAccent</color>
+    <bool name="av_bubblesRandomizeSizes">true</bool>
+    <integer name="av_wavesCount">7</integer>
+    <integer name="av_layersCount">1</integer>
+    <integer name="av_bubblesPerLayer">16</integer>
+    <dimen name="footer_height">300dp</dimen>
+    <dimen name="wave_height">60dp</dimen>
+    <dimen name="bubble_size">25dp</dimen>
+    <array name="av_wavesColors">
+        <item>@color/colorPrimary</item>
+    </array>
+</resources>

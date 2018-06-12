@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "top.ymwy.ymaudio"
+        applicationId "top.ymwy.ymaudio.demo"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
@@ -22,12 +22,17 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url  "https://dl.bintray.com/liaction/YMAudio"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.cleveroad:audiovisualization:1.0.0'
-    implementation 'com.kailashdabhi:om-recorder:1.1.5'
+    implementation 'top.ymwy.ymaudio:library:0.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">YMAudio</string>
+    <string name="audio">Audio</string>
+    <string name="play">Play</string>
 </resources>

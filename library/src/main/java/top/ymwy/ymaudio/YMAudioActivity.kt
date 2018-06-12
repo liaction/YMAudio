@@ -1,13 +1,11 @@
 package top.ymwy.ymaudio
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
-import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.KeyEvent
@@ -16,7 +14,19 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_audio_wave.*
 import java.io.File
 
-class MainActivity : AppCompatActivity() {
+class YMAudioActivity : AppCompatActivity() {
+
+    companion object {
+        var REQUEST_CODE = 5015
+            private set
+        const val AUDIO_PATH = "YM-AUDIO-PATH"
+        fun start(activity: Activity, requestCode: Int = REQUEST_CODE) {
+            if (activity.isNotNull()) {
+                REQUEST_CODE = requestCode
+                activity.startActivityForResult(Intent(activity, YMAudioActivity::class.java), requestCode)
+            }
+        }
+    }
 
     private fun showLog(msg: String) {
         Log.e("msg", msg)
@@ -80,11 +90,17 @@ class MainActivity : AppCompatActivity() {
         mAudioOk.setOnClickListener {
             ymAudio.stopRecording()
             showLog("保存录音：" + ymAudio.toString())
+            val audioIntent = Intent()
+            audioIntent.putExtra(AUDIO_PATH, ymAudio.audioPath)
+            setResult(Activity.RESULT_OK,audioIntent)
+            finish()
         }
 
         mAudioCancel.setOnClickListener {
             ymAudio.stopRecording(delete = true)
             showLog("取消录音了")
+            setResult(Activity.RESULT_CANCELED)
+            finish()
         }
 
     }
@@ -131,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         mVisualizerView.onPause()
-        if (ymAudio.isRecording()){
+        if (ymAudio.isRecording()) {
             mAudioTime.stop()
             ymAudio.pauseRecording()
             ymAudio.audioDuration = SystemClock.elapsedRealtime() - mAudioTime.base

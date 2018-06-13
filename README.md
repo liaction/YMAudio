@@ -16,6 +16,8 @@ repositories {
 dependencies{
 // ....
 implementation 'top.ymwy.ymaudio:library:0.1.3'
+// .... after 0.1.3 use this
+implementation 'top.ymwy.ymaudio:ymwy-audio:0.1.3'
 }
 ```
 

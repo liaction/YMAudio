@@ -1,5 +1,5 @@
 # YMAudio
-android audio recorder
+android audio recorder with waveInApp & OmRecorder
 
 [ ![Download](https://api.bintray.com/packages/liaction/ymwycs/YMAudio/images/download.svg?version=0.1.3) ](https://bintray.com/liaction/ymwycs/YMAudio/0.1.3/link)
 
@@ -33,7 +33,7 @@ dependencies{
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == YMAudioActivity.REQUEST_CODE){
             when(resultCode){
-                Activity.RESULT_OK-{
+                Activity.RESULT_OK->{
                     data?.let {
                         val audioPath = data.getStringExtra(YMAudioActivity.AUDIO_PATH)
                         if (audioPath.isNotNull()){
@@ -46,10 +46,10 @@ dependencies{
                         }
                     }
                 }
-                Activity.RESULT_CANCELED-{
+                Activity.RESULT_CANCELED->{
                     // TODO 用户取消了录音
                 }
-                YMAudioActivity.PERMISSIONS_NOT_GRANTED-{
+                YMAudioActivity.PERMISSIONS_NOT_GRANTED->{
                    // TODO 权限被拒绝
                 }
             }
@@ -57,6 +57,13 @@ dependencies{
     }
 
 ```
+
+# TODO LIST
+---
+- [x] 可暂停继续
+- [ ] 文件自定义位置
+- [ ] 动态权限
+
 
 # License
 ```

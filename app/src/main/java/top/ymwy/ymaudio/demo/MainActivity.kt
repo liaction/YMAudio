@@ -53,11 +53,17 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                else ->{
+                Activity.RESULT_CANCELED->{
                     mPlayAudioBtn.isEnabled = false
                     mAudioResult.text = "用户取消了录音"
                     mAudioResult.setTextColor(Color.RED)
                     showTip(this,"用户取消了录音")
+                }
+                YMAudioActivity.PERMISSIONS_NOT_GRANTED->{
+                    mPlayAudioBtn.isEnabled = false
+                    mAudioResult.text = "权限被拒绝"
+                    mAudioResult.setTextColor(Color.RED)
+                    showTip(this,"权限被拒绝")
                 }
             }
         }

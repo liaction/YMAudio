@@ -11,4 +11,11 @@
     <array name="av_wavesColors">
         <item>@color/colorPrimary</item>
     </array>
+    <string name="permissions_not_granted"><![CDATA[为保证正常使用录音功能，程序需要使用您的<b>麦克风</b>，由于权限被拒绝，无法正常使用.]]></string>
+    <string name="title_permissions">温馨提示</string>
+    <string name="title_permissions_not_granted">很遗憾 :( </string>
+    <string name="btn_next">继续</string>
+    <string name="btn_i_know">我知道了</string>
+    <string name="btn_cancel">拒绝</string>
+    <string name="message_permissions"><![CDATA[为保证正常使用录音功能，程序需要使用您的<b>麦克风</b>，如果您同意，请点击<b>继续</b>,以进行下一步操作.]]></string>
 </resources>

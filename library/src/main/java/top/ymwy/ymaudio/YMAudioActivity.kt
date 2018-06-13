@@ -1,11 +1,14 @@
 package top.ymwy.ymaudio
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.KeyEvent
@@ -19,6 +22,8 @@ class YMAudioActivity : AppCompatActivity() {
     companion object {
         var REQUEST_CODE = 5015
             private set
+        const val PERMISSIONS_NOT_GRANTED = 1015
+        private const val PERMISSIONS_REQUEST_CODE = 1028
         const val AUDIO_PATH = "YM-AUDIO-PATH"
         fun start(activity: Activity, requestCode: Int = REQUEST_CODE) {
             if (activity.isNotNull()) {
@@ -32,7 +37,7 @@ class YMAudioActivity : AppCompatActivity() {
         Log.e("msg", msg)
     }
 
-    fun showTip(context: Context, msg: String?) {
+    private fun showTip(context: Context, msg: String?) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
@@ -41,6 +46,65 @@ class YMAudioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_audio_wave)
+
+        mAudioCancel.setOnClickListener {
+            ymAudio.stopRecording(delete = true)
+            showLog("取消录音了")
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
+
+        // 申请权限
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
+            whenCanDoNext(false)
+            return
+        }
+        requestPermissions()
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS),
+                PERMISSIONS_REQUEST_CODE
+        )
+    }
+
+    private fun permissionsNotGranted() {
+        setResult(PERMISSIONS_NOT_GRANTED)
+        finish()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSIONS_REQUEST_CODE) {
+            var allGranted = true
+            for (permissionIndex in permissions.indices) {
+                if (Manifest.permission.RECORD_AUDIO == permissions[permissionIndex] || Manifest.permission.MODIFY_AUDIO_SETTINGS == permissions[permissionIndex]) {
+                    allGranted = allGranted and (grantResults[permissionIndex] == PackageManager.PERMISSION_GRANTED)
+                }
+            }
+            if (allGranted) {
+                whenCanDoNext()
+                return
+            }
+            permissionsNotGranted()
+        }
+    }
+
+    private fun whenCanDoNext(canNext: Boolean = true) {
+        if (!canNext) {
+            try {
+                ymAudio.startRecording()
+                ymAudio.stopRecording(true)
+                whenCanDoNext()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                permissionsNotGranted()
+            }
+            return
+        }
+
         mVisualizerView.linkTo(ymAudio.dbmHandler)
         mAudioStartOrPause.setOnClickListener {
             when (ymAudio.audioState) {
@@ -92,14 +156,7 @@ class YMAudioActivity : AppCompatActivity() {
             showLog("保存录音：" + ymAudio.toString())
             val audioIntent = Intent()
             audioIntent.putExtra(AUDIO_PATH, ymAudio.audioPath)
-            setResult(Activity.RESULT_OK,audioIntent)
-            finish()
-        }
-
-        mAudioCancel.setOnClickListener {
-            ymAudio.stopRecording(delete = true)
-            showLog("取消录音了")
-            setResult(Activity.RESULT_CANCELED)
+            setResult(Activity.RESULT_OK, audioIntent)
             finish()
         }
 
@@ -120,8 +177,8 @@ class YMAudioActivity : AppCompatActivity() {
     }
 
     private fun playAudio(path: String) {
-        val intent = Intent("android.intent.action.VIEW")
-        intent.addCategory("android.intent.category.DEFAULT")
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
         val file = File(path)

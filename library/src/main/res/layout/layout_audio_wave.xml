@@ -31,7 +31,6 @@
         android:textSize="80sp" />
 
     <ImageButton
-        android:visibility="gone"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_below="@+id/mAudioTime"
@@ -64,7 +63,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/bg_circle_white"
         android:src="@drawable/ic_audio_restart"
@@ -77,7 +76,7 @@
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/circle_red" />
 
     <ImageButton
@@ -86,9 +85,9 @@
         android:layout_height="36dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/rectangle_red"
+        android:layout_marginBottom="44dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rectangle_white"
         android:visibility="gone"
         tools:visibility="visible" />
 
@@ -98,10 +97,9 @@
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/bg_circle_white"
-
         android:src="@drawable/ic_audio_play"
         android:visibility="gone" />
 

@@ -42,7 +42,7 @@ dependencies {
 def siteUrl = 'https://github.com/liaction/YMAudio'
 def gitUrl = 'https://github.com/liaction/YMAudio'
 group = "top.ymwy.ymaudio"
-version = "0.1.2"
+version = "0.1.3"
 install {
     repositories.mavenInstaller {
         pom {

@@ -15,11 +15,11 @@ enum class AudioState {
     START, STOP, PAUSE, RESUME
 }
 
-class YMAudio(val context: Context, val dbmHandler: DbmHandler<Float> = DbmHandler.Factory.newSpeechRecognizerHandler(context)) : PullTransport.OnAudioChunkPulledListener {
+class YMAudio(val context: Context, val dbmHandler: DbmHandler<Double> = YMAudioDbmHandler()) : PullTransport.OnAudioChunkPulledListener {
     override fun onAudioChunkPulled(audioChunk: AudioChunk?) {
         audioChunk?.let {
             if (dbmHandler.isNotNull()) {
-                dbmHandler.onDataReceived(if (isRecording()) audioChunk.maxAmplitude().toFloat() else 0f)
+                dbmHandler.onDataReceived(if (isRecording()) audioChunk.maxAmplitude() else 0.0)
             }
         }
     }
@@ -81,4 +81,26 @@ class YMAudio(val context: Context, val dbmHandler: DbmHandler<Float> = DbmHandl
         return "YMAudio(audioDuration=$audioDuration, audioFileName=$audioFileName, audioState=$audioState, audioPath='$audioPath')"
     }
 
+}
+
+class YMAudioDbmHandler : DbmHandler<Double>() {
+    override fun onDataReceivedImpl(data: Double?, layersCount: Int, dBmArray: FloatArray, ampsArray: FloatArray) {
+        data?.let {
+            var amplitude = data / 100
+            if (amplitude <= 0.5) {
+                amplitude = 0.0
+            } else if (amplitude > 0.5 && amplitude <= 0.6) {
+                amplitude = 0.2
+            } else if (amplitude > 0.6 && amplitude <= 0.7) {
+                amplitude = 0.6
+            } else if (amplitude > 0.7) {
+                amplitude = 1.0
+            }
+            try {
+                dBmArray[0] = amplitude.toFloat()
+                ampsArray[0] = amplitude.toFloat()
+            } catch (e: Exception) {
+            }
+        }
+    }
 }

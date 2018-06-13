@@ -15,7 +15,7 @@ repositories {
 }
 dependencies{
 // ....
-implementation 'top.ymwy.ymaudio:library:0.1.2'
+implementation 'top.ymwy.ymaudio:library:0.1.3'
 }
 ```
 

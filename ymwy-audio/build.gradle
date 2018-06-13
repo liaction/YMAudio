@@ -105,7 +105,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "YMAudio"
+        repo = "ymwycs"
         name = "YMAudio"
         version {
             name = this.version

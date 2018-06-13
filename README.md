@@ -6,6 +6,13 @@ android audio recorder with waveInApp & OmRecorder
 # THANKS
 - [WaveInApp](https://github.com/Cleveroad/WaveInApp)
 - [OmRecorder](https://github.com/kailash09dabhi/OmRecorder)
+- [AndroidAudioRecorder](https://github.com/adrielcafe/AndroidAudioRecorder)
+
+
+# IMAGES
+![](./images/pic_recording.png)
+![](./images/pic_pause.png)
+![](./images/pic_done.png)
 
 
 # 使用说明
